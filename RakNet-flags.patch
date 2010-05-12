@@ -1,0 +1,34 @@
+--- Raknet2_0/Source/Makefile~	2005-09-26 20:37:00.000000000 +0200
++++ Raknet2_0/Source/Makefile	2010-05-12 14:48:28.129473293 +0200
+@@ -3,11 +3,11 @@
+ all: shared static
+ 
+ shared:
+-	$(CC) $(DEBUG) -I$(INCLUDE) -w -c *.cpp
+-	$(CC) $(DEBUG) -shared -Wl-soname,libraknet.so.2 -o $(BASE_DIR)/Lib/linux/libraknet.so.$(VERSION) *.o $(LIBS)
++	$(CC) $(CFLAGS) -I$(INCLUDE) -w -c *.cpp
++	$(CC) $(CFLAGS) $(LDFLAGS) -shared -Wl-soname,libraknet.so.2 -o $(BASE_DIR)/Lib/linux/libraknet.so.$(VERSION) *.o $(LIBS)
+ 
+ static:
+-	$(CC) $(DEBUG) -I$(INCLUDE) -w -c *.cpp
++	$(CC) $(CFLAGS) -I$(INCLUDE) -w -c *.cpp
+ 	$(AR) rcs $(BASE_DIR)/Lib/linux/libraknet.a *.o
+ 
+ clean:
+--- Raknet2_0/Source/RakVoice/Makefile~	2005-09-17 18:25:00.000000000 +0200
++++ Raknet2_0/Source/RakVoice/Makefile	2010-05-12 14:54:06.806102695 +0200
+@@ -3,11 +3,11 @@
+ all: voiceshared voicestatic
+ 
+ voiceshared:
+-	$(CC) $(DEBUG) -I $(INCLUDE) -I ../ -w -c *.cpp
+-	$(CC) $(DEBUG) -shared -Wl-soname,librakvoice.so.2 -o $(BASE_DIR)/Lib/linux/librakvoice.so.$(VERSION) *.o $(LIBS)
++	$(CC) $(CFLAGS) -I $(INCLUDE) -I ../ -w -c *.cpp
++	$(CC) $(CFLAGS) $(LDFLAGS) -shared -Wl-soname,librakvoice.so.2 -o $(BASE_DIR)/Lib/linux/librakvoice.so.$(VERSION) *.o $(LIBS)
+ 
+ voicestatic:
+-	$(CC) $(DEBUG) -I $(INCLUDE) -I ../ -w -c *.cpp
++	$(CC) $(CFLAGS) -I $(INCLUDE) -I ../ -w -c *.cpp
+ 	$(AR) rcs $(BASE_DIR)/Lib/linux/rakvoice.$(VERSION).a *.o
+ 
+ clean:
