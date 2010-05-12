@@ -1,0 +1,30 @@
+--- Raknet2_0/Makefile~	2010-05-04 23:31:30.000000000 +0200
++++ Raknet2_0/Makefile	2010-05-12 14:38:40.556199068 +0200
+@@ -19,18 +19,15 @@
+ 	make -C Source/RakVoice "BASE_DIR=$(PWD)" clean
+ 
+ install:
+-	rm -f $(LIBS_DIR)/libraknet.so.$(VERSION)
+-	rm -f $(LIBS_DIR)/libraknet.so
+-	rm -f $(LIBS_DIR)/librakvoice.so.$(VERSION)
+-	rm -f $(LIBS_DIR)/librakvoice.so
+-	cp $(PWD)/Lib/linux/libraknet.so.$(VERSION) $(LIBS_DIR)/
+-	rm -f $(LIBS_DIR)/pkgconfig/RakNet.pc
+-	cp $(PWD)/RakNet.pc  $(LIBS_DIR)/pkgconfig/
+-	ln -s $(LIBS_DIR)/libraknet.so.$(VERSION) $(LIBS_DIR)/libraknet.so
+-	cp $(PWD)/Lib/linux/librakvoice.so.$(VERSION) $(LIBS_DIR)/
+-	ln -s $(LIBS_DIR)/librakvoice.so.$(VERSION) $(LIBS_DIR)/librakvoice.so
+-	mkdir -p $(INCLUDE_DIR)/raknet
+-	cp -r $(PWD)/Include/* $(INCLUDE_DIR)/raknet
++	mkdir -p $(DESTDIR)$(LIBS_DIR)
++	cp $(PWD)/Lib/linux/libraknet.so.$(VERSION) $(DESTDIR)$(LIBS_DIR)/
++	mkdir -p $(DESTDIR)$(LIBS_DIR)/pkgconfig
++	cp $(PWD)/RakNet.pc  $(DESTDIR)$(LIBS_DIR)/pkgconfig/
++	ln -s $(LIBS_DIR)/libraknet.so.$(VERSION) $(DESTDIR)$(LIBS_DIR)/libraknet.so
++	cp $(PWD)/Lib/linux/librakvoice.so.$(VERSION) $(DESTDIR)$(LIBS_DIR)/
++	ln -s $(LIBS_DIR)/librakvoice.so.$(VERSION) $(DESTDIR)$(LIBS_DIR)/librakvoice.so
++	mkdir -p $(DESTDIR)$(INCLUDE_DIR)/raknet
++	cp -r $(PWD)/Include/* $(DESTDIR)$(INCLUDE_DIR)/raknet
+ #   mkdir $(INCLUDE_DIR)/RakVoice;
+ #   cp $(PWD)/include/RakVoice/* $(INCLUDE_DIR)/RakVoice;
+ #   mkdir $(INCLUDE_DIR)/Autopatcher;
