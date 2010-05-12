@@ -1,5 +1,5 @@
-#
-# NOTE: RakNet 3.x is available, but it is not under GPL License
+# NOTE
+# - RakNet 3.x is available, but it is not under GPL License
 #
 %define		ver	%(echo %{version} | tr . _)
 Summary:	Networking engine for game programmers
@@ -15,6 +15,8 @@ Patch0:		%{name}-destdir.patch
 Patch1:		%{name}-flags.patch
 URL:		http://www.jenkinssoftware.com/
 BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.553
+BuildRequires:	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -37,6 +39,7 @@ Pliki nagłówkowe biblioteki RakNet.
 
 %prep
 %setup -q -n Raknet%{ver}
+%undos Makefile Source/Makefile Source/RakVoice/Makefile
 %patch0 -p1
 %patch1 -p1
 
