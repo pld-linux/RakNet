@@ -1,12 +1,14 @@
 # NOTE
 # - RakNet 3.x is available, but it is not under GPL License
+# - lib64 fix
+# - SONAME lost?
 #
 %define		ver	%(echo %{version} | tr . _)
 Summary:	Networking engine for game programmers
 Summary(pl.UTF-8):	Silnik sieciowy dla programistów gier
 Name:		RakNet
 Version:	2.0
-Release:	1
+Release:	0.1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://www.sumwars.org/data/Raknet%{ver}.tar.gz
@@ -51,21 +53,25 @@ Pliki nagłówkowe biblioteki RakNet.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
-%{_includedir}/raknet
 %attr(755,root,root) %{_libdir}/libraknet.so.*.*.*
+#%attr(755,root,root) %ghost %{_libdir}/libraknet.so.2
 %attr(755,root,root) %{_libdir}/librakvoice.so.*.*.*
+#%attr(755,root,root) %ghost %{_libdir}/librakvoice.so.2
 
 %files devel
 %defattr(644,root,root,755)
+%{_includedir}/raknet
 %{_libdir}/libraknet.so
 %{_libdir}/librakvoice.so
 %{_pkgconfigdir}/RakNet.pc
