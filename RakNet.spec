@@ -1,6 +1,6 @@
 # NOTE
 # - RakNet 3.x is available, but it is not under GPL License
-# - lib64 fix
+# - fix linking
 # - SONAME lost?
 #
 %define		ver	%(echo %{version} | tr . _)
@@ -16,6 +16,7 @@ Source0:	http://www.sumwars.org/data/Raknet%{ver}.tar.gz
 Patch0:		%{name}-destdir.patch
 Patch1:		%{name}-flags.patch
 URL:		http://www.jenkinssoftware.com/
+BuildRequires:	gcc-c++
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.553
 BuildRequires:	sed >= 4.0
@@ -46,14 +47,15 @@ Pliki nagłówkowe biblioteki RakNet.
 %patch1 -p1
 
 %build
-%{__make} \
+%{__make} -j1 \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -fPIC" \
 	LDFLAGS="%{rpmldflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install \
+%{__make} -j1 install \
+	LIBS_DIR="%{_libdir}" \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
